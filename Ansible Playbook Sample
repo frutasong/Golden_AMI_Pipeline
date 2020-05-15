@@ -1,0 +1,39 @@
+--- 
+- name: Install nginx 
+  hosts: host.name.ip 
+  become: true 
+ 
+
+tasks: 
+  - name: Add epel-release repo 
+    yum: 
+      name: epel-release 
+      state: present 
+ 
+
+- name: Install nginx 
+    yum: 
+      name: nginx 
+      state: present 
+ 
+
+- name: Insert Index Page 
+    template: 
+      src: index.html 
+      dest: /usr/share/nginx/html/index.html 
+ 
+
+- name: Start NGiNX 
+    service: 
+      name: nginx 
+      state: started 
+
+ 
+
+#ansible-playbook play.yml 
+
+#ansible-playbook -i inv play.yml (specifify and inventory file if we are using non-default)
+
+Constructing a Playbook is easy, and a lot can be done with a little. 
+This exercise referenced three modules - yum, template, and service - which installed a software package 
+and a software repo, wrote a file based on a local copy, then started the service it just installed.
